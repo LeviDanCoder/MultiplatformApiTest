@@ -30,6 +30,8 @@ class ApplicationApi {
 
     private val address = Url("https://cors-test.appspot.com/test")
 
+    public fun getDispatcher() = ApplicationDispatcher
+
     fun about(callback: (String) -> Unit) {
         GlobalScope.launch(ApplicationDispatcher) {
             val status: Response = client.get {
@@ -41,6 +43,15 @@ class ApplicationApi {
             }
         }
     }
+
+   suspend fun about(): Response{
+       val status: Response = client.get {
+           url(address.toString())
+       }.body()
+       return status
+
+   }
+
 }
 
 
