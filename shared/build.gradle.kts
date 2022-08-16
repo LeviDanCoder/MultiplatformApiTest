@@ -4,6 +4,8 @@ plugins {
     id("com.android.library")
     kotlin("plugin.serialization") version "1.4.21"
     id("maven-publish")
+    id("com.chromaticnoise.multiplatform-swiftpackage") version "2.0.3"
+
 }
 
 version = "1.0"
@@ -43,6 +45,12 @@ kotlin {
         podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "shared"
+        }
+    }
+    multiplatformSwiftPackage {
+        swiftToolsVersion("5.3")
+        targetPlatforms {
+            iOS { v("13") }
         }
     }
 
@@ -95,6 +103,8 @@ kotlin {
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
         }
+        val jsMain by getting
+
     }
 }
 
